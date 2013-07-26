@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <!--<siteMapNode url="~/Users" title="User Settings"  description="" />
+  <siteMapNode url="~/UserGroup" title="User Groups Settings"  description="" />
+  <siteMapNode url="~/DynamicDataDefs" title="Dynamic Data Def Settings"  description="" />
+  <siteMapNode url="~/GISGridTable" title="GIS Grid Table Settings"  description="" />
+  
+  <siteMapNode url="" title="Admin Tools"  description="">
+    <siteMapNode url="~/General" title="General Settings"  description="" />
+    <siteMapNode url="~/MapView" title="Map view Settings"  description="" />
+    <siteMapNode url="~/Security" title="Security Settings"  description="" />
+  </siteMapNode>-->
+</siteMap>

@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="Content/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="Content/favicon.ico" type="image/x-icon">
+    <link href='http://fonts.googleapis.com/css?family=Lekton' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Molengo' rel='stylesheet' type='text/css'>
+    <link href="~/Content/style.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/accordionmenu.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="Scripts/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="Scripts/jquery-ui-1.8.17.min.js"></script>
+    <script type="text/javascript" src="Scripts/accordionImageMenu-0.4.min.js"></script>
+    <script type="text/javascript" src="Scripts/ImmapMenu.js"></script>
+    <script type="text/javascript">
+        $(document).ready(ImmapMenuHandle);
+
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        .HeaderLogo
+        {
+            height: 77px;
+            width: 168px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <link href="Content/style.css" rel="stylesheet" type="text/css" />
+    <div id="wrapper">
+        <div id="header" class="container">
+            <div id="logo">
+                <% If Session("IsPass") = "TRUE" Then%>
+                <h1>
+                    <asp:HyperLink ID="HyperLink8" ToolTip="Oasis Admin Tool" NavigateUrl="~/Home" ImageUrl="~/Content/images/immap.jpg"
+                        runat="server" />
+                </h1>
+                <% Else%>
+                <h1>
+                    <asp:Image ID="Image2" CssClass="Haderlogo" runat="server" ImageUrl="~/Content/images/immap.jpg" />
+                </h1>
+                <% End If%>
+            </div>
+            <div id="menu">
+                <ul>
+                    <li class="current_page_item"><a href="">
+                        <%Response.Write(Session("TITLE"))%></a>
+                        <% If Session("IsPass") = "TRUE" Then%>
+                        <div class="logout">
+                            <asp:HyperLink ID="HyperLink6" ToolTip="Log out" NavigateUrl="~/Logout" runat="server">Log out</asp:HyperLink>
+                        </div>
+                        <% End If%>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- end #header -->
+        <div id="page" class="container">
+            <div id="content">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <!-- end #content -->
+            <div id="sidebar">
+                <% If Session("IsPass") = "TRUE" Then%>
+                <ul class="accordion">
+                    <li id="one" class="General"><a href="#General"><em>1 </em>General</a>
+                        <ul class="sub-menu">
+                            <li>
+                                <asp:HyperLink ID="HyperLink3" ToolTip="General Settings" NavigateUrl="~/General"
+                                    runat="server">General Settings</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink1" ToolTip="Users" NavigateUrl="~/User" runat="server">
+                                Users</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink2" ToolTip="User Groups" NavigateUrl="~/UserGroup" runat="server">
+                                User Groups</asp:HyperLink>
+                            </li>
+                        </ul>
+                    </li>
+                    <li id="two" class="Map"><a href="#Map"><em>2 </em>Map</a>
+                        <ul class="sub-menu">
+                            <li>
+                                <asp:HyperLink ID="HyperLink4" ToolTip="Map View Settings" NavigateUrl="~/Map" runat="server">
+                                Map Settings</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink11" ToolTip="Map Library" NavigateUrl="~/MapLibrary"
+                                    runat="server">Map Library</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink9" ToolTip="Web Tiles" NavigateUrl="~/WebTiles" runat="server">Web Tiles</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink12" ToolTip="Data View" NavigateUrl="~/DataViews" runat="server">Data View</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink18" ToolTip="Themes" NavigateUrl="~/Themes" runat="server">Themes</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink17" ToolTip="Theme Groups" NavigateUrl="~/ThemeGroups"
+                                    runat="server">Theme Groups</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink20" ToolTip="GeoBookmarks" NavigateUrl="~/GeoBookMarks"
+                                    runat="server">GeoBookmarks</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink19" ToolTip="GeoBookmark Groups" NavigateUrl="~/GeoBookMarksCategories"
+                                    runat="server">GeoBookmark Groups</asp:HyperLink>
+                            </li>
+                        </ul>
+                    </li>
+                    <li id="three" class="Modules"><a href="#Modules"><em>3 </em>Modules</a>
+                        <ul class="sub-menu">
+                            <li>
+                                <asp:HyperLink ID="HyperLink10" ToolTip="Dynamic Modules" NavigateUrl="~/DynamicModules"
+                                    runat="server">Dynamic Modules</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink22" ToolTip="RSS" NavigateUrl="~/RSS" runat="server">RSS</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink21" ToolTip="RSS Groups" NavigateUrl="~/RSSGroups" runat="server">RSS Groups</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink5" ToolTip="Security" NavigateUrl="~/Security" runat="server">Security</asp:HyperLink>
+                            </li>
+                        </ul>
+                    </li>
+                    <% If (Session IsNot Nothing) AndAlso Session("UserGroup").ToString().ToLower().Trim() = "immap" Then%>
+                    <li id="Li1" class="Dynamic Settings"><a href="#Dynamic Settings"><em>4 </em>Dynamic
+                        Settings</a>
+                        <ul class="sub-menu">
+                            <li>
+                                <asp:HyperLink ID="HyperLink14" ToolTip="Formatting" NavigateUrl="~/Formatting" runat="server">Formatting</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink15" ToolTip="Validation" NavigateUrl="~/Validation.aspx"
+                                    runat="server">Validation</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink16" ToolTip="Nearby features" NavigateUrl="~/NearbyFeatures.aspx"
+                                    runat="server">Nearby features</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink23" ToolTip="Charts" NavigateUrl="~/ChartSettings.aspx"
+                                    runat="server">Charts</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink24" ToolTip="Queries" NavigateUrl="~/Queries.aspx" runat="server">Queries</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink ID="HyperLink7" ToolTip="Combobox Relation" NavigateUrl="~/ComboRelations.aspx" runat="server">Combobox Relations</asp:HyperLink>
+                            </li>
+                        </ul>
+                    </li>
+                    <% End If%>
+                </ul>
+                <% Else%>
+                <%--                <ul class="accordion">
+                    <li id="one" class="Sign"><a href="#sign">Sign In</a>
+                        <ul class="sub-menu">
+                            <li>
+                                <asp:HyperLink ID="HyperLink7" ToolTip="Log in" NavigateUrl="~/Login" runat="server"><em>01</em>Log in</asp:HyperLink></li>
+                        </ul>
+                    </li>
+                </ul>--%>
+                <% End If%>
+            </div>
+            <!-- end #sidebar -->
+            <div style="clear: both;">
+                &nbsp;</div>
+        </div>
+        <!-- end #page -->
+    </div>
+    <div id="footer-content" class="container">
+        <div id="footer-bg">
+            <div id="column1">
+                <p>
+                    <% 
+                        If Session("IsPass") = "TRUE" AndAlso Not (Request.Cookies("ADMINTOOL")("FullName") Is Nothing) Then
+                            Response.Write("Current user logged in: " & Request.Cookies("ADMINTOOL")("FullName").ToString())
+                            Response.Write("<br />")
+                            Response.Write(String.Format("Last Login prior to this session was {0} at {1}",
+                                                         Session("DateLogged").ToString(),
+                                                         Session("TimeLogged").ToString()))
+                        End If
+                    %>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+    </div>
+    <!-- end #footer -->
+    </form>
+</body>
+</html>
