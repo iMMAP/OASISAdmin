@@ -17,7 +17,7 @@ Partial Class MapViewSettings
         If Not (Page.IsPostBack) Then
             Session("TITLE") = "Map Settings"
             LoadUserGroups()
-            If Not (Session("cboUserGroupsIndex") Is Nothing) Then
+            If Not (Session("cboUserGroupsIndex") Is Nothing) AndAlso (cboUserGroups.Items.Count > 0) Then
                 cboUserGroups.SelectedIndex = Convert.ToInt32(Session("cboUserGroupsIndex"))
                 cboUserGroups.DataBind()
             End If
@@ -48,6 +48,7 @@ Partial Class MapViewSettings
                 cboUserGroups.DataSource = dt
                 cboUserGroups.DataTextField = "Name"
                 cboUserGroups.DataValueField = "ID"
+                cboUserGroups.SelectedIndex = 0
             Else
                 cboUserGroups.DataSource = Nothing
             End If
@@ -107,6 +108,8 @@ Partial Class MapViewSettings
         ImmapUtil.GetInstance().SaveData(database, cboUserGroups.SelectedItem.Text, "ShowlegendTab", "SettingValue1", If(chkLegend.Value = True, "1", "0"))
         ImmapUtil.GetInstance().SaveData(database, cboUserGroups.SelectedItem.Text, "ShowMapLibraryTab", "SettingValue1", If(chkMapLibrary.Value = True, "1", "0"))
         ImmapUtil.GetInstance().SaveData(database, cboUserGroups.SelectedItem.Text, "ShowSecurityTab", "SettingValue1", If(chkSecurity.Value = True, "1", "0"))
+        ImmapUtil.GetInstance().SaveData(database, cboUserGroups.SelectedItem.Text, "OpsTools", "SettingValue2", If(chkLegendgrouping.Value = True, "1", "0"))
+
 
         ImmapUtil.GetInstance().SaveData(database, cboUserGroups.SelectedItem.Text, "UserDefGridRecords", "SettingValue1", If(chkUseMaxRecords.Value = True, "1", "0"))
         ImmapUtil.GetInstance().SaveData(database, cboUserGroups.SelectedItem.Text, "UserDefGridRecords", "SettingValue2", txtMaxLevel.Text)
@@ -284,6 +287,15 @@ Partial Class MapViewSettings
                             End If
                         End If
 
+
+                        If SettingName.Equals("OpsTools") Then
+                            Dim SettingValue2 As String = Convert.ToString(dtConfig.Rows(i)(2))
+                            If SettingValue2.Equals("1") Then
+                                chkLegendgrouping.Value = True
+                            Else
+                                chkLegendgrouping.Value = False
+                            End If
+                        End If
                         If SettingName.Equals("ShowMapLibraryTab") Then
                             If SettingValue1.Equals("1") Then
                                 chkMapLibrary.Value = True
