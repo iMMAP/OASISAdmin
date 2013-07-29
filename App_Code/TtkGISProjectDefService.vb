@@ -38,11 +38,10 @@ Namespace Immap
                 Dim dt = SQLHelper.ExecuteDataTable(SQLHelper.SetConnectionString(DatabaseName),
                                                         commandText)
 
+
+
                 If Not (store Is Nothing) AndAlso Not (dt Is Nothing) Then
                     store.DataSource = dt
-                    store.DataBind()
-                End If
-                If Not (store Is Nothing) Then
                     store.DataBind()
                 End If
                 If Not (dt Is Nothing) AndAlso dt.Rows.Count > 0 Then
