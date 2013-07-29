@@ -49,28 +49,24 @@ Namespace Immap
                 commandText &= " WHERE id = @ID"
                 Dim dr As SqlDataReader = Nothing
                 Dim fm As GISGridTableSettingsModel = Nothing
-                Try
-                    dr = SQLHelper.ExecuteReader(SQLHelper.SetConnectionString(DatabaseName),
-                                                     commandText,
-                                                     New SqlParameter("@ID", Id))
-                    If dr.HasRows Then
-                        dr.Read()
-                        fm = New GISGridTableSettingsModel()
-                        fm.Id = dr.GetInt32(0)
-                        fm.Name = dr.GetString(1)
-                        fm.Alia = dr.GetString(2)
-                        fm.Visible = dr.GetBoolean(3)
-                        fm.DatasetWarning = dr.GetBoolean(4)
-                        fm.Warninglevel = dr.GetInt32(5)
-                        fm.MaxRec = dr.GetInt32(6)
-                        fm.ExcludedFlds = dr.GetString(7)
-                        fm.IsURLLayer = dr.GetBoolean(8)
-                        fm.AutoRunUrls = dr.GetBoolean(9)
-                        fm.URLLayerField = dr.GetString(10)
-                    End If
-                Catch ex As Exception
-
-                End Try
+                dr = SQLHelper.ExecuteReader(SQLHelper.SetConnectionString(DatabaseName),
+                                                 commandText,
+                                                 New SqlParameter("@ID", Id))
+                If dr.HasRows Then
+                    dr.Read()
+                    fm = New GISGridTableSettingsModel()
+                    fm.Id = dr.GetInt32(0)
+                    fm.Name = dr.GetString(1)
+                    fm.Alia = dr.GetString(2)
+                    fm.Visible = dr.GetBoolean(3)
+                    fm.DatasetWarning = dr.GetBoolean(4)
+                    fm.Warninglevel = dr.GetInt32(5)
+                    fm.MaxRec = dr.GetInt32(6)
+                    fm.ExcludedFlds = dr.GetString(7)
+                    fm.IsURLLayer = dr.GetBoolean(8)
+                    fm.AutoRunUrls = dr.GetBoolean(9)
+                    fm.URLLayerField = dr.GetString(10)
+                End If
                 If IsNothing(dr) = False AndAlso dr.IsClosed = False Then
                     dr.Close()
                     dr = Nothing

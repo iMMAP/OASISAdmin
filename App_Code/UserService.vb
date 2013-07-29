@@ -36,12 +36,8 @@ Namespace Immap
                               " [SettingUrl]," &
                               " g.[Name] AS 'Groups'" & _
                               "FROM [users] u INNER JOIN [userGroups] as g ON g.id = u.UserGroupID; "
-                Try
-                    dt = SQLHelper.ExecuteDataTable(ImmapUtil.getConnectionStringByDatabase(DatabaseName),
-                                                        commandText)
-                Catch ex As Exception
-                End Try
-
+                dt = SQLHelper.ExecuteDataTable(ImmapUtil.getConnectionStringByDatabase(DatabaseName),
+                                                    commandText)
                 Return dt
             End Function
 
@@ -60,23 +56,20 @@ Namespace Immap
                 commandText &= " FROM [users] u"
                 commandText &= " INNER JOIN [userGroups] as g ON g.id = u.UserGroupID"
                 commandText &= " WHERE u.[id]=@UserId"
-                Try
-                    dr = SQLHelper.ExecuteReader(ImmapUtil.getConnectionStringByDatabase(DatabaseName),
-                                    commandText,
-                                    New SqlParameter("@UserId", CInt(UserId)))
-                    If dr.HasRows Then
-                        dr.Read()
-                        user = New UserModel()
-                        user.UserID = dr.GetInt32(0)
-                        user.UserName = dr.GetString(1)
-                        user.FirstName = dr.GetString(3)
-                        user.LastName = dr.GetString(4)
-                        user.SettingURL = dr.GetString(5)
-                        user.GroupID = dr.GetInt32(6)
-                        user.GroupName = dr.GetString(7)
-                    End If
-                Catch ex As Exception
-                End Try
+                dr = SQLHelper.ExecuteReader(ImmapUtil.getConnectionStringByDatabase(DatabaseName),
+                                commandText,
+                                New SqlParameter("@UserId", CInt(UserId)))
+                If dr.HasRows Then
+                    dr.Read()
+                    user = New UserModel()
+                    user.UserID = dr.GetInt32(0)
+                    user.UserName = dr.GetString(1)
+                    user.FirstName = dr.GetString(3)
+                    user.LastName = dr.GetString(4)
+                    user.SettingURL = dr.GetString(5)
+                    user.GroupID = dr.GetInt32(6)
+                    user.GroupName = dr.GetString(7)
+                End If
                 If IsNothing(dr) = False AndAlso dr.IsClosed = False Then
                     dr.Close()
                     dr = Nothing
@@ -90,20 +83,16 @@ Namespace Immap
                 Dim isNotValid As Boolean = False
                 Dim sqlreader As SqlDataReader = Nothing
                 Dim commandText As String = "SELECT [user] FROM [Users] WHERE UPPER([user]) LIKE UPPER(@user)"
-                Try
-                    If (UserId <> -1) Then
-                        commandText &= " AND id<>@Id"
-                    End If
-                    sqlreader = SQLHelper.ExecuteReader(ImmapUtil.getConnectionStringByDatabase(DatabaseName),
-                                                        commandText,
-                                                        New SqlParameter("@user", "%" & Username & "%"),
-                                                        New SqlParameter("@id", UserId))
-                    If sqlreader.HasRows Then
-                        isNotValid = True
-                    End If
-                Catch ex As Exception
-
-                End Try
+                If (UserId <> -1) Then
+                    commandText &= " AND id<>@Id"
+                End If
+                sqlreader = SQLHelper.ExecuteReader(ImmapUtil.getConnectionStringByDatabase(DatabaseName),
+                                                    commandText,
+                                                    New SqlParameter("@user", "%" & Username & "%"),
+                                                    New SqlParameter("@id", UserId))
+                If sqlreader.HasRows Then
+                    isNotValid = True
+                End If
                 If IsNothing(sqlreader) = False AndAlso sqlreader.IsClosed = False Then
                     sqlreader.Close()
                     sqlreader = Nothing

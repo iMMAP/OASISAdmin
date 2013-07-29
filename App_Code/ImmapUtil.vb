@@ -66,40 +66,31 @@ Public Class ImmapUtil
                            ByVal SettingName As String,
                            ByVal SettingValueColumnName As String,
                            ByVal SettingValueData As String)
-        'Dim sqlCommand As New SqlCommand()
         Dim commandText As String = Nothing
         Dim dr As SqlDataReader = Nothing
         commandText = "SELECT SettingName FROM " & UserGroup & "AppSettings WHERE SettingName=@SettingName"
-
-        Try
-            Dim connStr As String = ImmapUtil.getConnectionStringByDatabase(Database)
-            dr = SQLHelper.ExecuteReader(connStr, commandText, New SqlParameter("@SettingName", SettingName))
-            If dr.HasRows Then
-                dr.Close()
-                commandText = "UPDATE " & UserGroup & "AppSettings SET " & SettingValueColumnName & _
-                            "=@SettingValueData WHERE SettingName=@SettingName"
-                SQLHelper.ExecuteNonQuery(connStr, commandText,
-                                              New SqlParameter("@SettingValueData", SettingValueData),
-                                              New SqlParameter("@SettingName", SettingName))
-            Else
-                dr.Close()
-                Dim id = SQLHelper.ExecuteScalar(connStr, "SELECT MAX([ID])+1 FROM " & "[dbo].[" & UserGroup & "AppSettings" & "]")
-                If IsDBNull(id) = True Then
-                    id = 1
-                End If
-                commandText = "INSERT INTO " & UserGroup & "AppSettings (id,SettingName," & SettingValueColumnName & ") VALUES(" & id.ToString() & ",@SettingName,@SettingValueData)"
-                'commandText = "INSERT INTO " & UserGroup & "AppSettings (SettingName," & SettingValueColumnName & ") VALUES(@SettingName,@SettingValueData)"
-                SQLHelper.ExecuteNonQuery(connStr, commandText, New SqlParameter("@SettingValueData", SettingValueData), New SqlParameter("@SettingName", SettingName))
+        Dim connStr As String = ImmapUtil.getConnectionStringByDatabase(Database)
+        dr = SQLHelper.ExecuteReader(connStr, commandText, New SqlParameter("@SettingName", SettingName))
+        If dr.HasRows Then
+            dr.Close()
+            commandText = "UPDATE " & UserGroup & "AppSettings SET " & SettingValueColumnName & _
+                        "=@SettingValueData WHERE SettingName=@SettingName"
+            SQLHelper.ExecuteNonQuery(connStr, commandText,
+                                          New SqlParameter("@SettingValueData", SettingValueData),
+                                          New SqlParameter("@SettingName", SettingName))
+        Else
+            dr.Close()
+            Dim id = SQLHelper.ExecuteScalar(connStr, "SELECT MAX([ID])+1 FROM " & "[dbo].[" & UserGroup & "AppSettings" & "]")
+            If IsDBNull(id) = True Then
+                id = 1
             End If
-        Catch ex As Exception
-
-        End Try
+            commandText = "INSERT INTO " & UserGroup & "AppSettings (id,SettingName," & SettingValueColumnName & ") VALUES(" & id.ToString() & ",@SettingName,@SettingValueData)"
+            SQLHelper.ExecuteNonQuery(connStr, commandText, New SqlParameter("@SettingValueData", SettingValueData), New SqlParameter("@SettingName", SettingName))
+        End If
         If IsNothing(dr) = False AndAlso dr.IsClosed = False Then
             dr.Close()
             dr = Nothing
-
         End If
-        'sqlCommand.Dispose()
     End Sub
 
     Public Sub IncreseSetting(ByVal Database As String,
@@ -110,33 +101,29 @@ Public Class ImmapUtil
         Dim dr As SqlDataReader = Nothing
         Dim conStr As String = ImmapUtil.getConnectionStringByDatabase(Database)
         commandText = "SELECT [SettingName]," & SettingValueColumnName & " FROM " & UserGroup & "AppSettings WHERE SettingName=@SettingName"
-        Try
-            dr = SQLHelper.ExecuteReader(conStr,
-                                         commandText,
-                                         New SqlParameter("@SettingName", SettingName))
-            Dim SettingValueData As Integer
-            If dr.HasRows Then
-                dr.Read()
-                If dr.IsDBNull(1) Then
-                    SettingValueData = 1
-                Else
-                    SettingValueData = CInt(dr.GetString(1))
-                    SettingValueData += 1
-                End If
-                dr.Close()
-                commandText = "UPDATE " & UserGroup & "AppSettings SET " & SettingValueColumnName & "=@SettingValueData WHERE SettingName=@SettingName"
-
-                SQLHelper.ExecuteNonQuery(conStr, commandText, New SqlParameter("@SettingValueData", SettingValueData.ToString()), New SqlParameter("@SettingName", SettingName))
+        dr = SQLHelper.ExecuteReader(conStr,
+                                     commandText,
+                                     New SqlParameter("@SettingName", SettingName))
+        Dim SettingValueData As Integer
+        If dr.HasRows Then
+            dr.Read()
+            If dr.IsDBNull(1) Then
+                SettingValueData = 1
             Else
-                commandText = "INSERT INTO " & UserGroup & "AppSettings (SettingName," &
-                              SettingValueColumnName & ") VALUES(@SettingName,'1')"
-                SQLHelper.ExecuteNonQuery(conStr,
-                                              commandText,
-                                              New SqlParameter("@SettingName", SettingName))
+                SettingValueData = CInt(dr.GetString(1))
+                SettingValueData += 1
             End If
-        Catch ex As Exception
+            dr.Close()
+            commandText = "UPDATE " & UserGroup & "AppSettings SET " & SettingValueColumnName & "=@SettingValueData WHERE SettingName=@SettingName"
 
-        End Try
+            SQLHelper.ExecuteNonQuery(conStr, commandText, New SqlParameter("@SettingValueData", SettingValueData.ToString()), New SqlParameter("@SettingName", SettingName))
+        Else
+            commandText = "INSERT INTO " & UserGroup & "AppSettings (SettingName," &
+                          SettingValueColumnName & ") VALUES(@SettingName,'1')"
+            SQLHelper.ExecuteNonQuery(conStr,
+                                          commandText,
+                                          New SqlParameter("@SettingName", SettingName))
+        End If
         If IsNothing(dr) = False AndAlso dr.IsClosed = False Then
             dr.Close()
             dr = Nothing
@@ -156,7 +143,6 @@ Public Class ImmapUtil
         commandText = "SELECT [sID], [sGUID], [sTableName], [swhen], [sStatus], [sequence], [sBy], [sdelete]," &
                       " [updates], [noconflict] FROM [dbo].[" & UserGroup & "SynchHistory" & "]" &
                       " WHERE UPPER([sTableName]) LIKE UPPER(@tableName) AND UPPER([sId]) LIKE UPPER(@sId)"
-        'Try
         sqlreader = SQLHelper.ExecuteReader(conStr, commandText,
                                                 New SqlParameter("@tableName", tableName),
                                                 New SqlParameter("@sId", sId))
@@ -171,7 +157,6 @@ Public Class ImmapUtil
                 sequence += 1
             End If
             sGUID = sqlreader.GetString(1)
-            'ImmapUtil.NewGUid()
             sqlreader.Close()
             commandText = "UPDATE " & UserGroup & "SynchHistory"
             commandText &= " SET sID='" & sId & "'"
@@ -205,9 +190,6 @@ Public Class ImmapUtil
             sqlreader.Close()
             sqlreader = Nothing
         End If
-        'Catch ex As Exception
-
-        'End Try
     End Sub
 
     Public Function CheckIfNull(sString As Object) As String

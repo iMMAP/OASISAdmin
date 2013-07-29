@@ -108,21 +108,6 @@ Partial Class Login
     End Sub
     Protected Sub LoadDatabase()
         Try
-            'Dim doc = New XmlDocument()
-            'doc.Load("http://atlantis.oasiswebservice.org/oasis.asp?id=SELECT%20[name]%20FROM%20sys.sysdatabases")
-
-            'Dim ds As New DataSet
-            '' Dim url = "http://atlantis.oasiswebservice.org/oasis.asp?id=SELECT%20[name]%20FROM%20sys.sysdatabases"
-            'Dim url = "http://atlantis.oasiswebservice.org/oasis.asp?id=EXEC%20sp_databases"
-            'ds.ReadXml(url)
-            'Dim dt = ds.Tables("row")
-            'cboDatabase.Items.Clear()
-            'For i As Integer = 0 To dt.Rows.Count - 1
-            '    Dim value As String = Convert.ToString(dt.Rows(i)(0))
-            '    If value.ToLower().StartsWith("oasisdb-") = True Then
-            '        cboDatabase.Items.Add(value)
-            '    End If
-            'Next i
             Dim dbUrl As String = System.Configuration.ConfigurationManager.AppSettings("DbUrl").ToString()
             Dim XmlReader As New XmlTextReader(dbUrl)
             Dim dbname As String = Nothing
