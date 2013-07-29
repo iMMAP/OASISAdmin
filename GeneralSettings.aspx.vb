@@ -19,9 +19,10 @@ Partial Class GeneralSettings
         If Not (Page.IsPostBack) Then
             Session("TITLE") = "General Settings"
             LoadUserGroups()
-            If Not (Session("cboUserGroupsIndex") Is Nothing) Then
+            If Not (Session("cboUserGroupsIndex") Is Nothing) AndAlso (cboUserGroups.Items.Count > 0) Then
                 cboUserGroups.SelectedIndex = Convert.ToInt32(Session("cboUserGroupsIndex"))
                 cboUserGroups.DataBind()
+
             End If
             LoadAllSetting()
         End If
@@ -269,6 +270,7 @@ Partial Class GeneralSettings
                 cboUserGroups.DataSource = dt
                 cboUserGroups.DataTextField = "Name"
                 cboUserGroups.DataValueField = "ID"
+                cboUserGroups.SelectedIndex = 0
             Else
                 cboUserGroups.DataSource = Nothing
             End If

@@ -11,7 +11,7 @@ Partial Class SecurityModuleSettings
         If Not (Page.IsPostBack) Then
             Session("TITLE") = "Security"
             LoadUserGroups()
-            If Not (Session("cboUserGroupsIndex") Is Nothing) Then
+            If Not (Session("cboUserGroupsIndex") Is Nothing) AndAlso (cboUserGroups.Items.Count > 0) Then
                 cboUserGroups.SelectedIndex = Convert.ToInt32(Session("cboUserGroupsIndex"))
                 cboUserGroups.DataBind()
             End If
@@ -28,6 +28,7 @@ Partial Class SecurityModuleSettings
                 cboUserGroups.DataSource = dt
                 cboUserGroups.DataTextField = "Name"
                 cboUserGroups.DataValueField = "ID"
+                cboUserGroups.SelectedIndex = 0
             Else
                 cboUserGroups.DataSource = Nothing
             End If
