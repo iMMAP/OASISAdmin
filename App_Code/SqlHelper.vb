@@ -144,9 +144,6 @@ Namespace System.Data.SqlClient
             If ds.Tables.Count = 0 Then
                 Return Nothing
             End If
-            If ds.Tables(0).Rows.Count = 0 Then
-                Return Nothing
-            End If
             Return ds.Tables(0)
         End Function
 
