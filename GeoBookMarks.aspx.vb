@@ -181,6 +181,9 @@ Partial Class GeoBookMarks
             frmGeoBookMarks.Reset()
             ReloadGeoBookMarks()
             ReloadGeoBookMarksGroup()
+            Dim sm As RowSelectionModel = TryCast(Me.gpGeoBookMarks.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpGeoBookMarks.Call("clearMemory")
         ElseIf command.Equals("UPDATE") Then
             Dim isDuplicate As Boolean = GeoBookMarkService.GetInstance().CheckDuplicateByNameAndId(database, userGroup, txtName.Text.Trim(), nbfId.Text)
             If isDuplicate Then
@@ -215,6 +218,9 @@ Partial Class GeoBookMarks
             frmGeoBookMarks.Reset()
             ReloadGeoBookMarks()
             ReloadGeoBookMarksGroup()
+            Dim sm As RowSelectionModel = TryCast(Me.gpGeoBookMarks.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpGeoBookMarks.Call("clearMemory")
         End If
     End Sub
 End Class

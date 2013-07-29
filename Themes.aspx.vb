@@ -142,6 +142,9 @@ Partial Class Themes
             frmThemes.Reset()
             ReloadTheme()
             ReloadThemeGroup()
+            Dim sm As RowSelectionModel = TryCast(Me.gpThemes.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpThemes.Call("clearMemory")
         ElseIf command.Equals("UPDATE") Then
             Dim isDuplicate As Boolean = ThemeService.GetInstance().CheckDuplicateByNameAndId(database, userGroup, txtName.Text.Trim(), txtID.Text)
             If isDuplicate Then
@@ -167,6 +170,9 @@ Partial Class Themes
             frmThemes.Reset()
             ReloadTheme()
             ReloadThemeGroup()
+            Dim sm As RowSelectionModel = TryCast(Me.gpThemes.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpThemes.Call("clearMemory")
         End If
     End Sub
     Public Sub ReloadTheme()
