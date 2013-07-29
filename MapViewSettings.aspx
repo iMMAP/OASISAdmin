@@ -459,6 +459,12 @@
                                     <ext:ToolTip ID="ToolTip10" runat="server" Html="<p><b>ShowSecurityTab</b></p><p>SettingValue1 (boolean value: 0,1)</p>" />
                                 </ToolTips>
                             </ext:Checkbox>
+                               <ext:DisplayField ID="DisplayField23" runat="server" Text="Legend Grouping" />
+                            <ext:Checkbox ID="chkLegendgrouping" runat="server">
+                                <ToolTips>
+                                    <ext:ToolTip ID="ToolTip23" runat="server" Html="<p><b>OpsTools</b></p><p>SettingValue2 (boolean value: 0,1)</p>" />
+                                </ToolTips>
+                            </ext:Checkbox>
                         </Items>
                     </ext:CompositeField>
                 </Items>
