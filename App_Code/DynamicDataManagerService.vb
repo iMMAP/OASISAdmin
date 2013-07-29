@@ -278,7 +278,6 @@ Namespace Immap
                         ddfm = New DynamicDataFiledModel()
                         ddfm.FieldName = dtDataFileds.Rows(i)(1).ToString()
                         ddfm.Caption = dtDataFileds.Rows(i)(2).ToString()
-                        'If (String.IsNullOrWhiteSpace(ddfm.Caption)) Then ddfm.Caption = ddfm.FieldName
                         If Not IsNothing(dictDataEntryFields) AndAlso dictDataEntryFields.ContainsKey(ddfm.FieldName) Then
                             ddfm.IsCheck = True
                         Else
