@@ -138,7 +138,9 @@ Partial Class Validation
         ClearTableNameStore()
         ClearColumnNameStore()
         ReloadValidation(DDDefName)
-        gpValidation.SelectionModel.Clear()
+        Dim sm As RowSelectionModel = TryCast(Me.gpValidation.SelectionModel.Primary, RowSelectionModel)
+        sm.ClearSelections()
+        gpValidation.Call("clearMemory")
     End Sub
     Protected Sub ReloadDynamicDataManager()
         Dim database As String = Convert.ToString(Session("database"))

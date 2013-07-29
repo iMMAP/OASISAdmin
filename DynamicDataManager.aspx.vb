@@ -190,6 +190,9 @@ Partial Class DynamicDataManager
             ClearFormSpecfication()
             ClearSpecificationDataFiledsStore()
             ReloadTableSpecfication()
+            Dim sm As RowSelectionModel = TryCast(Me.gpSpecification.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpSpecification.Call("clearMemory")
         ElseIf (saveType = ImmapUtil.SaveType.UPDATE) Then
             sGUID = txtGUID1.Text
             dataFiledDict = DynamicDataManagerService.GetInstance().GetDataFiledSettingFromJSON(sGUID, jsonDataFileds)
@@ -210,6 +213,9 @@ Partial Class DynamicDataManager
             ClearFormSpecfication()
             ClearSpecificationDataFiledsStore()
             ReloadTableSpecfication()
+            Dim sm As RowSelectionModel = TryCast(Me.gpSpecification.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpSpecification.Call("clearMemory")
         End If
 
     End Sub

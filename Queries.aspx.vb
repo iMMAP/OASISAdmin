@@ -91,6 +91,9 @@ Partial Class Queries
         End Select
         ClearFormNearbyFeatures()
         ReloadQueries(DDDefName)
+        Dim sm As RowSelectionModel = TryCast(Me.gpQuries.SelectionModel.Primary, RowSelectionModel)
+        sm.ClearSelections()
+        gpQuries.Call("clearMemory")
     End Sub
 
 

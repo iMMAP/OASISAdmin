@@ -141,7 +141,9 @@ Partial Class ThemeGroups
             ThemeGroupService.GetInstance().Insert(database, userGroup, txtName.Text, txtDescription.Text)
             frmThemeGroups.Reset()
             ReloadThemeGroup()
-
+            Dim sm As RowSelectionModel = TryCast(Me.gpThemeGroups.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpThemeGroups.Call("clearMemory")
         ElseIf command.Equals("UPDATE") Then
             Dim isDuplicate As Boolean = ThemeGroupService.GetInstance().CheckDuplicateByNameAndId(database, userGroup, txtName.Text.Trim(), txtID.Text)
             If isDuplicate Then
@@ -157,6 +159,9 @@ Partial Class ThemeGroups
             ThemeGroupService.GetInstance().Update(database, userGroup, txtName.Text, txtDescription.Text, Me.txtID.Text)
             frmThemeGroups.Reset()
             ReloadThemeGroup()
+            Dim sm As RowSelectionModel = TryCast(Me.gpThemeGroups.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpThemeGroups.Call("clearMemory")
         End If
     End Sub
 End Class

@@ -144,6 +144,9 @@ Partial Class NearbyFeatures
         ClearFormNearbyFeatures()
         ClearTableNameStore()
         ClearColumnNameStore()
+        Dim sm As RowSelectionModel = TryCast(Me.gpNearbyFeatures.SelectionModel.Primary, RowSelectionModel)
+        sm.ClearSelections()
+        gpNearbyFeatures.Call("clearMemory")
     End Sub
     Protected Sub ReloadDynamicDataManager()
         Dim database As String = Convert.ToString(Session("database"))

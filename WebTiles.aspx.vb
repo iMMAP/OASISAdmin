@@ -126,6 +126,9 @@ Partial Class WebTiles
                                                If(chkForceWGS.Checked = True, "1", "0"))
             frmWebTiles.Reset()
             ReloadWebTiles()
+            Dim sm As RowSelectionModel = TryCast(Me.gpWebTiles.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpWebTiles.Call("clearMemory")
         ElseIf command.Equals("UPDATE") Then
             If String.IsNullOrEmpty(txtHiddenCaption.Text) = True Then
                 msg.Show(New MessageBoxConfig() With {
@@ -160,6 +163,9 @@ Partial Class WebTiles
                                              If(chkForceWGS.Checked = True, "1", "0"))
             frmWebTiles.Reset()
             ReloadWebTiles()
+            Dim sm As RowSelectionModel = TryCast(Me.gpWebTiles.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpWebTiles.Call("clearMemory")
         End If
     End Sub
 

@@ -141,6 +141,9 @@ Partial Class GISGridTableSettings
                                                        txtaURLLayerField.Text)
             frmGISGridTableSettings.Reset()
             ReloadGridTableSettings()
+            Dim sm As RowSelectionModel = TryCast(Me.gpGISGridTableSettings.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpGISGridTableSettings.Call("clearMemory")
         ElseIf command.Equals("UPDATE") Then
             Dim isDuplicate As Boolean = GISGridTableSettingsService.GetInstance().CheckDuplicateByNameAndAliasAndId(database, userGroup, txtName.Text.Trim(), txtAlias.Text, txtId.Text)
             If isDuplicate Then
@@ -167,6 +170,9 @@ Partial Class GISGridTableSettings
                                                     txtId.Text)
             frmGISGridTableSettings.Reset()
             ReloadGridTableSettings()
+            Dim sm As RowSelectionModel = TryCast(Me.gpGISGridTableSettings.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpGISGridTableSettings.Call("clearMemory")
         End If
     End Sub
 End Class

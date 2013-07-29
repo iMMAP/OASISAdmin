@@ -128,6 +128,9 @@ Partial Class Feeds
             End If
             frmFeeds.Reset()
             ReloadFeed()
+            Dim sm As RowSelectionModel = TryCast(Me.gpFeeds.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpFeeds.Call("clearMemory")
         ElseIf command.Equals("UPDATE") Then
             Dim isDuplicate As Boolean = FeedServices.GetInstance().CheckDuplicateByNameAndId(database, userGroup, txtFeedName.Text.Trim(), nbfFeedID.Text)
             If isDuplicate Then
@@ -168,6 +171,9 @@ Partial Class Feeds
             End If
             frmFeeds.Reset()
             ReloadFeed()
+            Dim sm As RowSelectionModel = TryCast(Me.gpFeeds.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpFeeds.Call("clearMemory")
         End If
     End Sub
     Public Sub ReloadFeed()

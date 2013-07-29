@@ -143,6 +143,9 @@ Partial Class FeedGroups
             FeedGroupService.GetInstance().Update(database, userGroup, txtName.Text, If(chkCustomGroup.Checked = True, "1", "0"), Me.txtID.Text)
             frmFeedGroups.Reset()
             ReloadFeedGroup()
+            Dim sm As RowSelectionModel = TryCast(Me.gpFeedGroups.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpFeedGroups.Call("clearMemory")
         End If
     End Sub
 End Class

@@ -209,10 +209,6 @@ Partial Class TtkGISProjectDef
             End If
         End If
         Dim CreatedDate As String = txtCreateDate.Text
-        'If String.IsNullOrEmpty(dfCreateDate.RawText.Trim()) = False Then
-        '    CreatedDate = dfCreateDate.RawText
-        'End If
-
         If command.Equals("INSERT") Then
             Dim isDuplicate As Boolean = TtkGISProjectDefService.GetInstance().CheckDuplicateName(database, userGroup, txtsName.Text.Trim())
             If isDuplicate Then
@@ -257,6 +253,9 @@ Partial Class TtkGISProjectDef
                                                         txtAdminLyr5Name.Text)
             frmTtkGISProjectDef.Reset()
             ReloadTtkGISProjectDef()
+            Dim sm As RowSelectionModel = TryCast(Me.gpTtkGISProjectDef.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpTtkGISProjectDef.Call("clearMemory")
         ElseIf command.Equals("UPDATE") Then
             Dim isDuplicate As Boolean = TtkGISProjectDefService.GetInstance().CheckDuplicateByNameAndSguid(database, userGroup, txtsName.Text.Trim(), txtsGUID.Text)
             If isDuplicate Then
@@ -301,6 +300,9 @@ Partial Class TtkGISProjectDef
                                                         txtAdminLyr5Name.Text)
             frmTtkGISProjectDef.Reset()
             ReloadTtkGISProjectDef()
+            Dim sm As RowSelectionModel = TryCast(Me.gpTtkGISProjectDef.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpTtkGISProjectDef.Call("clearMemory")
         End If
     End Sub
 End Class

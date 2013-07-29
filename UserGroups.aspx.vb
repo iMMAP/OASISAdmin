@@ -18,8 +18,6 @@ Partial Class UserGroups
         ImmapService.GetInstance().CheckDatabaseIsExitIfNotRedirectTologin()
         If Not (Page.IsPostBack) Then
             Session("TITLE") = "User Groups"
-            '  hf.Value = Nothing
-            'LoadUserGroups()
             RefreshUserGroupStore()
         End If
     End Sub
@@ -169,6 +167,9 @@ Partial Class UserGroups
         End Try
         RefreshUserGroupStore()
         ClearUserStore()
+        Dim sm As RowSelectionModel = TryCast(Me.GridPanel1.SelectionModel.Primary, RowSelectionModel)
+        sm.ClearSelections()
+        GridPanel1.Call("clearMemory")
         Me.FormPanel1.Reset()
     End Sub
 
@@ -546,6 +547,7 @@ Partial Class UserGroups
 
         Dim ttkGISProjectDef As String = "CREATE TABLE [dbo].[" & TableName & "ttkGISProjectDef](" &
             "[InUse] [bit] NOT NULL," &
+            "[sName] [nvarchar] (255) NULL," &
             "[MapData] [ntext] NULL," &
             "[sGUID] [nvarchar](255) NULL," &
             "[XMIN] [float] NULL," &

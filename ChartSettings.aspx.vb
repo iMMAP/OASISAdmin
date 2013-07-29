@@ -97,6 +97,9 @@ Partial Class ChartSettings
             End If
             ReloadChartSettings()
             ClearForm()
+            Dim sm As RowSelectionModel = TryCast(Me.gpChartSettings.SelectionModel.Primary, RowSelectionModel)
+            sm.ClearSelections()
+            gpChartSettings.Call("clearMemory")
         End If
     End Sub
 End Class

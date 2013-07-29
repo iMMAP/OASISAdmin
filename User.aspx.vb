@@ -118,6 +118,9 @@ Partial Class User
         End Try
         ReloadUsers()
         Me.FormPanel1.Reset()
+        Dim sm As RowSelectionModel = TryCast(Me.GridPanel1.SelectionModel.Primary, RowSelectionModel)
+        sm.ClearSelections()
+        GridPanel1.Call("clearMemory")
         Return True
     End Function
     Protected Sub btnSave_Click(sender As Object, e As Ext.Net.DirectEventArgs)
