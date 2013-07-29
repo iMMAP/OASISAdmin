@@ -95,7 +95,7 @@ Namespace Immap
                                               New SqlParameter("@ESPGNumber", ESPGNumber),
                                               New SqlParameter("@ImageFormat", ImageFormat),
                                               New SqlParameter("@ForceWGS", ForceWGS))
-                ImmapUtil.GetInstance().IncreseSetting(DatabaseName, UserGroup, "ProfileSettings", "[SettingValue7]")
+                ImmapUtil.GetInstance().IncreseSetting(DatabaseName, UserGroup, "ProfileSettings", "[SettingValue3]")
             End Sub
 
             Public Sub Update(ByVal DatabaseName As String,
@@ -126,7 +126,7 @@ Namespace Immap
                                               New SqlParameter("@ESPGNumber", ESPGNumber),
                                               New SqlParameter("@ImageFormat", ImageFormat),
                                               New SqlParameter("@ForceWGS", ForceWGS))
-                ImmapUtil.GetInstance().IncreseSetting(DatabaseName, UserGroup, "ProfileSettings", "[SettingValue7]")
+                ImmapUtil.GetInstance().IncreseSetting(DatabaseName, UserGroup, "ProfileSettings", "[SettingValue3]")
             End Sub
 
 
@@ -138,7 +138,7 @@ Namespace Immap
                 SQLHelper.ExecuteNonQuery(con,
                                      CommandText,
                                      New SqlParameter("@Caption", sCaption))
-                ImmapUtil.GetInstance().IncreseSetting(DatabaseName, UserGroup, "ProfileSettings", "[SettingValue7]")
+                ImmapUtil.GetInstance().IncreseSetting(DatabaseName, UserGroup, "ProfileSettings", "[SettingValue3]")
             End Sub
 
 
