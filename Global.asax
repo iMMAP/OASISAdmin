@@ -84,6 +84,26 @@
         routes.MapPageRoute("Formatting",
             "Formatting",
             "~/DynamicDataManager.aspx", True)
+        
+        routes.MapPageRoute("Validation",
+            "Validation",
+            "~/Validation.aspx", True)
+        
+        routes.MapPageRoute("NearbyFeatures",
+            "NearbyFeatures",
+            "~/NearbyFeatures.aspx", True)
+        
+        routes.MapPageRoute("ChartSettings",
+            "Charts",
+            "~/ChartSettings.aspx", True)
+
+        routes.MapPageRoute("Queries",
+            "Queries",
+            "~/Queries.aspx", True)
+        
+        routes.MapPageRoute("ComboRelations",
+            "ComboRelations",
+            "~/ComboRelations.aspx", True)
     End Sub
     
     Sub Application_End(ByVal sender As Object, ByVal e As EventArgs)

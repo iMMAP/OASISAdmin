@@ -142,22 +142,22 @@
                                 <asp:HyperLink ID="HyperLink14" ToolTip="Formatting" NavigateUrl="~/Formatting" runat="server">Formatting</asp:HyperLink>
                             </li>
                             <li>
-                                <asp:HyperLink ID="HyperLink15" ToolTip="Validation" NavigateUrl="~/Validation.aspx"
+                                <asp:HyperLink ID="HyperLink15" ToolTip="Validation" NavigateUrl="~/Validation"
                                     runat="server">Validation</asp:HyperLink>
                             </li>
                             <li>
-                                <asp:HyperLink ID="HyperLink16" ToolTip="Nearby features" NavigateUrl="~/NearbyFeatures.aspx"
+                                <asp:HyperLink ID="HyperLink16" ToolTip="Nearby features" NavigateUrl="~/NearbyFeatures"
                                     runat="server">Nearby features</asp:HyperLink>
                             </li>
                             <li>
-                                <asp:HyperLink ID="HyperLink23" ToolTip="Charts" NavigateUrl="~/ChartSettings.aspx"
+                                <asp:HyperLink ID="HyperLink23" ToolTip="Charts" NavigateUrl="~/Charts"
                                     runat="server">Charts</asp:HyperLink>
                             </li>
                             <li>
-                                <asp:HyperLink ID="HyperLink24" ToolTip="Queries" NavigateUrl="~/Queries.aspx" runat="server">Queries</asp:HyperLink>
+                                <asp:HyperLink ID="HyperLink24" ToolTip="Queries" NavigateUrl="~/Queries" runat="server">Queries</asp:HyperLink>
                             </li>
                             <li>
-                                <asp:HyperLink ID="HyperLink7" ToolTip="Combobox Relation" NavigateUrl="~/ComboRelations.aspx" runat="server">Combobox Relations</asp:HyperLink>
+                                <asp:HyperLink ID="HyperLink7" ToolTip="Combobox Relation" NavigateUrl="~/ComboRelations" runat="server">Combobox Relations</asp:HyperLink>
                             </li>
                         </ul>
                     </li>
