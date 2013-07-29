@@ -124,7 +124,7 @@
                             </table>
                         </Content>
                     </ext:FieldSet>
-                    <ext:FieldSet ID="FieldSet4" runat="server" Title="Map" Width="670">
+                    <ext:FieldSet ID="FieldSet4" runat="server" Title="Module" Width="670">
                         <Content>
                             <table class="style1">
                                 <tr>
@@ -164,11 +164,11 @@
                                     </td>
                                     <td>
                                         <asp:HyperLink ID="HyperLink11" ToolTip="Nearby Features" NavigateUrl="~/NearbyFeatures.aspx"
-                                            ImageUrl="~/Content/images/gisgrid.png" runat="server" />
+                                            ImageUrl="~/Content/images/nearbyfeature.png" runat="server" />
                                     </td>
                                     <td>
                                         <asp:HyperLink ID="HyperLink12" ToolTip="Chart" NavigateUrl="~/ChartSettings.aspx"
-                                            ImageUrl="~/Content/images/gisgrid.png" runat="server" />
+                                            ImageUrl="~/Content/images/chartsetting.png" runat="server" />
                                     </td>
                                     <td>
                                         <asp:HyperLink ID="HyperLink13" ToolTip="Queries" NavigateUrl="~/Queries.aspx" ImageUrl="~/Content/images/Queries.png"
