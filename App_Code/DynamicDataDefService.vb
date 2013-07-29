@@ -160,10 +160,17 @@ Namespace Immap
                 Dim commandText As String = "SELECT [DDDefName] FROM [dbo].[" & UserGroup & "DynamicDataDefs" & "]" &
                                                " WHERE UPPER([DDDefName]) LIKE UPPER(@DDDefName)"
                 If String.IsNullOrEmpty(hiddenDDDefName) = False Then commandText &= " AND LTRIM(RTRIM(UPPER(DDDefName))) <> LTRIM(RTRIM(UPPER(@hiddenDDDefName)))"
-                Dim sqlreader = SQLHelper.ExecuteReader(ImmapUtil.getConnectionStringByDatabase(database),
+                Dim sqlreader As SqlDataReader
+                If String.IsNullOrEmpty(hiddenDDDefName) = False Then
+                    sqlreader = SQLHelper.ExecuteReader(ImmapUtil.getConnectionStringByDatabase(database),
                                                         commandText,
                                                         New SqlParameter("@DDDefName", Name),
                                                         New SqlParameter("@hiddenDDDefName", hiddenDDDefName))
+                Else
+                    sqlreader = SQLHelper.ExecuteReader(ImmapUtil.getConnectionStringByDatabase(database),
+                                      commandText,
+                                      New SqlParameter("@DDDefName", Name))
+                End If
                 If sqlreader.HasRows Then
                     isNotValid = True
                     sqlreader.Close()
