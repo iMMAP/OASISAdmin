@@ -91,8 +91,12 @@ Partial Class DynamicDataDefs
         CommandText.Append(" AND [TABLE_NAME] NOT LIKE '%_Specification%'")
         CommandText.Append(" AND [TABLE_NAME] NOT LIKE '%_ChartSettings%'")
         CommandText.Append(" AND [TABLE_NAME] NOT LIKE '%_SynchHistory%'")
-        CommandText.Append(" AND [TABLE_NAME] NOT LIKE '%_SynchHistoryOverview%' ")
+        CommandText.Append(" AND [TABLE_NAME] NOT LIKE '%_SynchHistoryOverview%'")
+        CommandText.Append(" AND [TABLE_NAME] NOT LIKE '%_NearbyFeatures%'")
+        CommandText.Append(" AND [TABLE_NAME] NOT LIKE '%_ComboRelations%'")
+        CommandText.Append(" AND [TABLE_NAME] NOT LIKE '%_Validation%'")
         CommandText.Append(" AND [TABLE_NAME] NOT LIKE '%_Queries%'")
+        CommandText.Append(" AND information_schema.tables.[TABLE_TYPE]='BASE TABLE'")
         CommandText.Append(" ORDER by TBName")
         Dim database As String = Convert.ToString(Session("database"))
         Dim TableModels As New List(Of TableModel)
@@ -167,11 +171,13 @@ Partial Class DynamicDataDefs
         CommandText &= " AND [TABLE_NAME] NOT LIKE '%_Specification%'"
         CommandText &= " AND [TABLE_NAME] NOT LIKE '%_ChartSettings%'"
         CommandText &= " AND [TABLE_NAME] NOT LIKE '%_SynchHistory%'"
-        CommandText &= " AND [TABLE_NAME] NOT LIKE '%_Validation%' "
-        CommandText &= " AND [TABLE_NAME] NOT LIKE '%_SynchHistoryOverview%' "
-        CommandText &= " AND [TABLE_NAME] NOT LIKE '%_NearbyFeatures%' "
-        CommandText &= " AND [TABLE_NAME] NOT LIKE '%_Queries%'  "
-        CommandText &= " ORDER by TABLE_NAME"
+        CommandText &= " AND [TABLE_NAME] NOT LIKE '%_Validation%'"
+        CommandText &= " AND [TABLE_NAME] NOT LIKE '%_SynchHistoryOverview%'"
+        CommandText &= " AND [TABLE_NAME] NOT LIKE '%_NearbyFeatures%'"
+        CommandText &= " AND [TABLE_NAME] NOT LIKE '%_Queries%'"
+        CommandText &= " AND [TABLE_NAME] NOT LIKE '%_ComboRelations%'"
+        CommandText &= " AND (SELECT TABLE_TYPE FROM information_schema.tables WHERE information_schema.tables.TABLE_NAME = information_schema.COLUMNS.TABLE_NAME) = 'BASE TABLE'"
+        CommandText &= " ORDER by TName"
 
         Dim database As String = Convert.ToString(Session("database"))
         Dim TableColumnModels As New List(Of TableColumnModel)
@@ -205,7 +211,6 @@ Partial Class DynamicDataDefs
                                     If CanGetKeyValue(keyValue, config, IndexIn, indexOut, tmpTName) Then
                                         isCanGet = True
                                     End If
-                                    'index = CInt(keyValue.Item(tmpTName & config(IndexIn).ToString()))
                                     If (isCanGet = True) AndAlso (indexOut >= 0) Then
                                         TableColumnModels(indexOut).LockFiled = True
                                     End If
@@ -232,7 +237,6 @@ Partial Class DynamicDataDefs
                                     If CanGetKeyValue(keyValue, config, IndexIn, indexOut, tmpTName) Then
                                         isCanGet = True
                                     End If
-                                    'index = CInt(keyValue.Item(tmpTName & config(IndexIn).ToString()))
                                     If (isCanGet = True) AndAlso (indexOut >= 0) Then
                                         TableColumnModels(indexOut).ExcludeFiled = True
                                     End If
@@ -266,16 +270,14 @@ Partial Class DynamicDataDefs
             Return False
         End Try
     End Function
-    <DirectMethod()>
-    Protected Sub btnInsert_Click(sender As Object, e As DirectEventArgs)
+    <DirectMethod()> Protected Sub btnInsert_Click(sender As Object, e As DirectEventArgs)
         Dim jsonValues As String = e.ExtraParams("values")
         Dim gpTableColumnName As String = e.ExtraParams("gpTableColumnName")
         InsertOrUpdate("INSERT", ReadRecords(jsonValues),
                        ReadTableColumnNames(gpTableColumnName, "LockFiled"),
                        ReadTableColumnNames(gpTableColumnName, "ExcludeFiled"))
     End Sub
-
-    Protected Sub btnUpdate_Click(sender As Object, e As DirectEventArgs)
+    <DirectMethod()> Protected Sub btnUpdate_Click(sender As Object, e As DirectEventArgs)
         Dim jsonValues As String = e.ExtraParams("values")
         Dim gpTableColumnName As String = e.ExtraParams("gpTableColumnName")
         InsertOrUpdate("UPDATE", ReadRecords(jsonValues),
@@ -405,7 +407,7 @@ Partial Class DynamicDataDefs
           })
             Exit Sub
         End If
-  
+
         If command.Equals("INSERT") Then
             Dim isDuplicate As Boolean = DynamicDataDefService.GetInstance().CheckDuplicateName(database, userGroup, txtDDDefName.Text.Trim())
             If isDuplicate Then
@@ -457,6 +459,9 @@ Partial Class DynamicDataDefs
         End If
         DynamicDataDefService.GetInstance().RunPrepareDynamicDatabaseScript(database, txtDDDefName.Text)
         ClearAndReloadDynamicDataDefs()
+        Dim sm As RowSelectionModel = TryCast(Me.gpDynamicDataDefs.SelectionModel.Primary, RowSelectionModel)
+        sm.ClearSelections()
+        gpDynamicDataDefs.Call("clearMemory")
         ' LoadTableAccess(txtDDDefName.Text, accessRights)
     End Sub
 
